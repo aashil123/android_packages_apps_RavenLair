@@ -18,6 +18,13 @@
             xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
             android:title="@string/notifications_title" >
 
+           <!-- Heads up -->
+    <Preference
+        android:key="heads_up_notifications"
+        android:title="@string/heads_up_notifications"
+        android:summary="@string/heads_up_summary"
+        android:fragment="com.raven.lair.fragments.HeadsUpSettings" />
+
            <Preference
             android:key="charging_light"
             android:title="@string/battery_light_settings"
