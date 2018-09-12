@@ -65,6 +65,7 @@ public class AnimationSettings extends SettingsPreferenceFragment
     private static final String KEY_TOAST_ANIMATION = "toast_animation";
     private static final String KEY_LISTVIEW_ANIMATION = "listview_animation";
     private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
+    private static final String KEY_SCREEN_OFF_ANIMATION = "screen_off_animation";
 
     private ListPreference mToastAnimation;
     private ListPreference mListViewAnimation;
@@ -81,6 +82,7 @@ public class AnimationSettings extends SettingsPreferenceFragment
     private ListPreference mWallpaperIntraOpen;
     private ListPreference mWallpaperIntraClose;
     private CustomSeekBarPreference mAnimationDuration;
+    private ListPreference mScreenOffAnimation;
 
     private int[] mAnimations;
     private String[] mAnimationsStrings;
@@ -200,6 +202,13 @@ public class AnimationSettings extends SettingsPreferenceFragment
         mWallpaperIntraClose.setSummary(getProperSummary(mWallpaperIntraClose));
         mWallpaperIntraClose.setEntries(mAnimationsStrings);
         mWallpaperIntraClose.setEntryValues(mAnimationsNum);
+
+        mScreenOffAnimation = (ListPreference) findPreference(KEY_SCREEN_OFF_ANIMATION);
+        int screenOffAnimation = Settings.System.getInt(getContentResolver(),
+                Settings.System.SCREEN_OFF_ANIMATION, 0);
+        mScreenOffAnimation.setValue(Integer.toString(screenOffAnimation));
+        mScreenOffAnimation.setSummary(mScreenOffAnimation.getEntry());
+        mScreenOffAnimation.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -232,6 +241,12 @@ public class AnimationSettings extends SettingsPreferenceFragment
             Settings.Global.putInt(getContentResolver(),
                     Settings.Global.LISTVIEW_INTERPOLATOR, value);
             mListViewInterpolator.setSummary(mListViewInterpolator.getEntries()[index]);
+            return true
+        } else if (preference == mScreenOffAnimation) {
+            int value = Integer.valueOf((String) newValue);
+            int index = mScreenOffAnimation.findIndexOfValue((String) newValue);
+            mScreenOffAnimation.setSummary(mScreenOffAnimation.getEntries()[index]);
+            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_ANIMATION, value);
             return true;
         } else if (preference == mActivityOpenPref) {
             int val = Integer.parseInt((String) newValue);
