@@ -19,7 +19,7 @@
     <PreferenceCategory
         android:title="@string/system_animation_title">
 
-         <com.msm.xtended.preferences.CustomSeekBarPreference
+         <com.corvus.support.preferences.CustomSeekBarPreference
              android:key="animation_duration"
              android:max="1500"
              android:persistent="false"
@@ -27,6 +27,12 @@
              settings:min="0"
              settings:units="ms"
              settings:interval="50"/>
+
+        <com.corvus.support.preferences.GlobalSettingSwitchPreference
+            android:key="disable_transition_animations"
+            android:title="@string/disable_transition_animations_title"
+            android:summary="@string/disable_transition_animations_summary"
+            android:defaultValue="false" />
 
         <ListPreference
             android:key="activity_open"
