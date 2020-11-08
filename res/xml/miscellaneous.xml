@@ -18,6 +18,11 @@
             xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
             android:title="@string/miscellaneous_title" >
 
+     <Preference
+         android:key="animations_category"
+         android:title="@string/animation_settings_title"
+         android:summary="@string/animation_settings_summary"
+         android:fragment="com.raven.lair.fragments.AnimationSettings" />
 
      <ListPreference
             android:key="pref_scrollingcache"
@@ -27,5 +32,4 @@
             android:entries="@array/entries_scrollingcache"
             android:entryValues="@array/values_scrollingcache" />
   
-
 </PreferenceScreen>
