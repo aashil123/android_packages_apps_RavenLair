@@ -34,12 +34,17 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 
 import com.corvus.support.preferences.CustomSeekBarPreference;
+import com.corvus.support.preferences.SystemSettingMasterSwitchPreference;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class QuickSettings extends SettingsPreferenceFragment
         implements Preference.OnPreferenceChangeListener, Indexable {
+
+     private static final String BRIGHTNESS_SLIDER = "qs_show_brightness";
+
+     private SystemSettingMasterSwitchPreference mBrightnessSlider;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,12 +53,13 @@ public class QuickSettings extends SettingsPreferenceFragment
 
         final ContentResolver resolver = getActivity().getContentResolver();
 
-    }
+          mBrightnessSlider = (SystemSettingMasterSwitchPreference)
+                findPreference(BRIGHTNESS_SLIDER);
+        mBrightnessSlider.setOnPreferenceChangeListener(this);
+        boolean enabled = Settings.System.getInt(resolver,
+                BRIGHTNESS_SLIDER, 1) == 1;
+        mBrightnessSlider.setChecked(enabled);
 
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        ContentResolver resolver = getActivity().getContentResolver();
-        return false;
     }
 
     @Override
@@ -61,7 +67,18 @@ public class QuickSettings extends SettingsPreferenceFragment
         return MetricsProto.MetricsEvent.CORVUS;
     }
 
-    public static final SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+         ContentResolver resolver = getActivity().getContentResolver();
+        if (preference == mBrightnessSlider) {
+            Boolean value = (Boolean) newValue;
+            Settings.System.putInt(resolver,
+                    BRIGHTNESS_SLIDER, value ? 1 : 0);
+            return true;
+         }
+        return false;
+    }
+
+   public static final SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
             new BaseSearchIndexProvider() {
                 @Override
                 public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,

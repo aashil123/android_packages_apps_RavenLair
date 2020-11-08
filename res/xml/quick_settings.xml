@@ -18,13 +18,18 @@
             xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
             android:title="@string/quicksettings_title" >
 
+      <!-- QS brightness slider -->
+    <com.corvus.support.preferences.SystemSettingMasterSwitchPreference
+            android:key="qs_show_brightness"
+            android:title="@string/qs_show_brightness_title"
+            android:summary="@string/qs_show_brightness_summary"
+            android:fragment="com.raven.lair.fragments.BrightnessSliderSettings"
+            android:defaultValue="true" />
+
          <com.corvus.support.preferences.SystemSettingSwitchPreference
             android:key="qs_running_services_toggle"
             android:title="@string/qs_running_services_title"
             android:summary="@string/qs_running_services_summary"
             android:defaultValue="false" />
-  
-
-    </PreferenceCategory>
 
 </PreferenceScreen>
