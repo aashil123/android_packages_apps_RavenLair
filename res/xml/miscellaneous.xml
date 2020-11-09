@@ -24,6 +24,12 @@
          android:summary="@string/animation_settings_summary"
          android:fragment="com.raven.lair.fragments.AnimationSettings" />
 
+      <!-- Enable/Disable Screenshot sound -->
+        <com.corvus.support.preferences.SystemSettingSwitchPreference
+          android:key="screenshot_sound"
+          android:title="@string/screenshot_sound_title"
+          android:defaultValue="false" />
+
      <ListPreference
             android:key="pref_scrollingcache"
             android:dialogTitle="@string/pref_scrollingcache_title"
